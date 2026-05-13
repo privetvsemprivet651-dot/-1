@@ -1,0 +1,201 @@
+/* =========================================
+   1. Глобальные настройки и Фон
+   ========================================= */
+
+/* Плавная прокрутка для всей страницы */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Кастомный фон для светлой темы */
+.v-theme--light .v-application__wrap {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+  min-height: 100vh;
+}
+
+/* Кастомный фон для темной темы */
+.v-theme--dark .v-application__wrap {
+  background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%) !important;
+  min-height: 100vh;
+}
+
+/* Стилизация скроллбара (Webkit: Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.v-theme--dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================================
+   2. Анимации появления
+   ========================================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Класс для применения анимации к строкам сетки */
+.animate-list .v-col {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Задержка анимации для эффекта "лесенки" (опционально, если использовать JS для индексов) */
+/* .v-col:nth-child(1) { animation-delay: 0.1s; } */
+/* .v-col:nth-child(2) { animation-delay: 0.2s; } */
+
+/* =========================================
+   3. Карточка Автомобиля (CarCard)
+   ========================================= */
+
+.car-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: rgb(var(--v-theme-surface)) !important;
+  border: 1px solid rgba(var(--v-border-color), 0.12);
+  overflow: hidden; /* Важно для зума картинки */
+  height: 100%; /* Чтобы карточки были одной высоты в ряду */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Эффект при наведении на карточку */
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(var(--v-theme-primary), 0.4);
+}
+
+/* Обертка изображения */
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+/* Сама картинка */
+.image-wrapper .v-img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Зум картинки при наведении на карточку */
+.car-card:hover .image-wrapper .v-img {
+  transform: scale(1.1);
+}
+
+/* Градиент поверх картинки для читаемости текста */
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Бейдж года выпуска */
+.year-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Цена с градиентным текстом */
+.price-tag {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  
+  /* Градиент для светлой темы */
+  background: linear-gradient(45deg, #1565C0, #42A5F5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #1565C0; /* Фоллбэк цвет */
+}
+
+/* Градиент для темной темы */
+.v-theme--dark .price-tag {
+  background: linear-gradient(45deg, #64B5F6, #2196F3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #64B5F6; /* Фоллбэк цвет */
+}
+
+/* Кнопка удаления */
+.delete-btn {
+  transition: transform 0.2s, color 0.2s;
+}
+.delete-btn:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* =========================================
+   4. Форма диалога (CarFormDialog)
+   ========================================= */
+
+.dialog-header {
+  background: linear-gradient(135deg, var(--v-theme-primary), var(--v-theme-primary-darken-1));
+  color: white !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+/* Улучшение полей ввода */
+.custom-input :deep(.v-field__outline) {
+  --v-field-border-opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+.custom-input:focus-within :deep(.v-field__outline) {
+  --v-field-border-opacity: 1;
+}
+
+/* =========================================
+   5. Утилиты
+   ========================================= */
+
+/* Стеклянный эффект для панелей (Glassmorphism) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.v-theme--dark .glass-panel {
+  background: rgba(30, 30, 47, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
